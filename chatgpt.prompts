@@ -1,0 +1,29 @@
+TypeError                                 Traceback (most recent call last)
+Cell In[29], line 17
+     14 noise = pm.HalfCauchy('noise', beta=2)
+     16 # 尤度
+---> 17 y = rv_model_vec(t, P, K, e, omega, Vsys, T0)
+
+Cell In[28], line 18, in rv_model_vec(t, P, K, e, omega, Vsys, T0)
+     16 M = 2 * np.pi / P * (t - T0)
+     17 M = pt.mod(M, 2 * np.pi)  # wrap
+---> 18 E = kepler_E(M, e)
+     19 nu = 2 * pt.arctan2(pt.sqrt(1 + e) * pt.sin(E / 2),
+     20                     pt.sqrt(1 - e) * pt.cos(E / 2))
+     21 return Vsys + K * (pt.cos(nu + omega) + e * pt.cos(omega))
+
+Cell In[28], line 10, in kepler_E(M, e, tol, maxiter)
+      8     dE = -f / fprime
+      9     E += dE
+---> 10     if pt.all(pt.abs(dE) < tol):
+     11         break
+     12 return E
+
+File ~/opt/anaconda3/envs/pymc_env/lib/python3.11/site-packages/pytensor/tensor/variable.py:31, in _tensor_py_operators.__bool__(self)
+     30 def __bool__(self):
+---> 31     raise TypeError(
+     32         "TensorVariable cannot be converted to Python boolean. "
+     33         "Call .astype(bool) for the symbolic equivalent."
+     34     )
+
+TypeError: TensorVariable cannot be converted to Python boolean. Call .astype(bool) for the symbolic equivalent.
